@@ -1,15 +1,50 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Grades</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-  </head>
-
-  <body>
-    <%= yield %>
-  </body>
+<html lang="en" ng-app="myApp">
+<head>
+  <title><%= @settings[:title]%> Grades</title>
+  <script>
+    config={
+       base: '<%=ENV['RAILS_RELATIVE_URL_ROOT']%>'
+     };
+     
+  </script>
+  <%= stylesheet_link_tag    'application', media: 'all'%>
+  <%= javascript_include_tag 'application'%>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <div class="container main-container" style="max-width: 600px">
+    <div style="position:relative">
+    <h1><%= @settings[:page_title]%> Grades</h1>
+    <%if current_user%>
+    <span class="header">
+      <%= link_to(current_user.username, edit_user_path(current_user)) %>
+   
+      <strong><%= link_to("Log out", destroy_user_session_path, :method=>:delete) %></strong>
+    </span>
+    <%end%>
+    </div>
+    <!--warning div-->
+    <div class="alert-danger" style="text-align: center;">
+      All actions are logged and audited. Your IP Address <strong><%=@requesting_ip%></strong> has been recorded.
+    </div>
+    <%if alert %>
+      <div class="alert alert-danger alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <%=alert%>
+      </div>
+    <%end%>
+    <%if notice %>
+      <div class="alert alert-success alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <%=notice%>
+      </div>
+    <%end%>
+    <div class="contents">
+      <%=yield%>
+    </div>
+  </div>
+</body>
 </html>
