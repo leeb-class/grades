@@ -1,0 +1,18 @@
+<h2>Student Details</h2>
+
+<dl class="dl-horizontal">
+  <dt>First Name</dt><dd><%=@student.first_name%></dd>
+  <dt>Last Name</dt><dd><%=@student.last_name%></dd>
+  <dt>Athena Username</dt><dd><%=@student.athena%></dd>
+</dl>
+<a href="mailto:<%=@student.athena%>@mit.edu" class="btn btn-primary"> 
+  <i class="fa fa-envelope"></i> Send Mail</a>
+  
+<!--<a type="button" class="btn btn-primary"
+  href="<%=edit_student_path(@student)%>"><i class="icon-plus"></i> Edit Student</a>-->
+
+<a type="button" data-confirm="Are you sure?" data-method="delete"
+   class="btn btn-danger" href="<%=student_path(@student)%>" rel="nofollow">
+   Delete Student</a>
+
+<a href="<%=students_path%>" class="btn btn-default">Back</a>

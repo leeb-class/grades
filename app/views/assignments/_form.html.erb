@@ -1,0 +1,46 @@
+<%= form_for(@assignment) do |f| %>
+  <% if @assignment.errors.any? %>
+    <div class="alert alert-danger">
+      <h3><%= pluralize(@assignment.errors.count, "error") %> 
+        prohibited this assignment from being saved:</h3>
+      <ul>
+      <% @assignment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <% form_class="form-group"%>
+  <% form_class+=" has-error" if @assignment.errors.include?(:name)%>
+  <div class="<%=form_class%>">
+    <%= f.label :name, :class=>"control-label"%>
+    <%= f.text_field :name, :class=>"form-control"%>
+  </div>
+  <% form_class="form-group"%>
+  <% form_class+=" has-error" if @assignment.errors.include?(:abbreviation)%>
+  <div class="<%= form_class%>">
+    <%= f.label :abbreviation, :class=>"control-label"%>
+    <%= f.text_field :abbreviation, :class=>"form-control" %>
+  </div>
+  <% form_class="form-group"%>
+  <% form_class+=" has-error" if @assignment.errors.include?(:description)%>
+  <div class="<%= form_class%>">
+    <%= f.label :description, :class=>"control-label" %>
+    <%= f.text_field :description, :class=>"form-control"  %>
+  </div>
+  <% form_class="form-group"%>
+  <% form_class+=" has-error" if @assignment.errors.include?(:value)%>
+  <div class="<%= form_class%>">
+    <%= f.label :value, :class=>"control-label"%>
+    <%= f.text_field :value, :class=>"form-control"  %>
+  </div>
+  <div class="actions">
+    <%= f.submit 'Submit', :class=>"btn btn-primary"%>
+    <%if @assignment.id==nil%>
+      <%cancel_path=assignments_path%>
+    <%else %>
+      <%cancel_path=assignment_path(@assignment)%>
+    <%end%>
+    <a href="<%=cancel_path%>" class="btn btn-default">Cancel</a>
+  </div>
+<% end %>

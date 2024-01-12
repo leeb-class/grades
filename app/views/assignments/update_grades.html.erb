@@ -1,0 +1,102 @@
+<h2>Update Grades for <%=@assignment.name%>
+  <a class="btn btn-primary pull-right"
+    href="<%=update_grades_assignment_path(@assignment)%>.pdf">
+    <i class="fa fa-print"></i>  Print This Page</a>
+</h2>
+
+<table class="table">
+  <thead>
+    <th>Student</th>
+    <th>Grade</th>
+  </thead>
+  <tbody ng-controller="GradeCtrl">
+  <!--sort by last name-->
+  <%@assignment.grades.includes(:student).order('students.last_name').each do |grade|%>
+    <tr>
+      <td><%=grade.student.full_name%></td>
+      <td>
+        <form class="form-inline"> <%grade.value = 0 if grade.value==nil%>
+        <%=number_to_human(grade.value, precision: 4, strip_insignificant_zeros: true)%>
+        + <input type="text_field" class="grade_txt form-control jsGrade" 
+          data-id="<%=grade.id%>" data-grade="<%=grade.value%>"
+          placeholder="0" ng-model="ng<%=grade.id%>" > = 
+          <strong>{{sum(<%=grade.value%>,ng<%=grade.id%>)}}</strong>
+        </form>
+      </td>
+    </tr>
+  <%end%>
+  </tbody>
+</table>
+<%if current_user.admin?%>
+<a type="button" class="btn btn-primary disabled" id="btnSaveGrades"><i class="icon-plus"></i> Save Grades</a>
+
+<%end%>
+<a href="<%=assignment_path(@assignment)%>" class="btn btn-default">Back</a>
+
+<script>
+$(function(){
+  $("#btnSaveGrades").click(function(){
+    if(validateAll()==false)
+      return;
+    var grades = {};
+    //build a tuples of all the grades
+    $(".jsGrade").each(function(index){
+      var id = parseInt($(this).attr("data-id"));
+      var grade = parseFloat($(this).attr("data-grade"));
+      if(isNaN(grade)) //updating a nil grade
+        grade = 0;
+      if($(this).val()!="")
+        grade += parseFloat($(this).val());
+      grades[id]=grade;
+    });
+    //now we have validated grades, send to server
+    $.ajax({
+      type: "POST",
+      url: "<%=save_grades_assignment_path(@assignment)%>",
+      data: {"grades":grades},
+      success: saveComplete,
+    });
+  });
+  //input validation 
+  $(".jsGrade").change(function(){
+    var input = $(this).val();
+    if(input=="")
+      return;
+    //if the grade text is not a number, highlight the row
+    if(isNaN(parseFloat(input)) || parseFloat(input)<0){
+      $(this).parent().parent().parent().addClass("danger");
+    } else {
+      $(this).parent().parent().parent().removeClass("danger");
+    }
+    //now validate the rest of the inputs to see if we can save
+    validateAll();
+  });
+  //save is complete, redirect the user to the assignments page
+  function saveComplete(){
+    window.location="<%=assignment_path(@assignment)%>"
+  }
+  //only enable button when all inputs are valid
+  function validateInput(x){
+    if(x=="")
+      return true;
+    if(isNaN(parseFloat(x)) || parseFloat(x)<0)
+      return false;
+    return true;
+  };
+  //check all inputs to make sure they are valid
+  function validateAll(){
+    isValid=true;
+    $(".jsGrade").each(function(index){
+      if(validateInput($(this).val())==false){
+        isValid=false;
+      }
+    });
+    if(isValid){
+      $("#btnSaveGrades").removeClass("disabled");
+    } else {
+      $("#btnSaveGrades").addClass("disabled");
+    }
+    return isValid;
+  };
+});
+</script>

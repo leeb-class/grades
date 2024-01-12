@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-md-8 col-md-offset-1">
+  <h4>Grade Reports</h4>
+  <ul>
+    <li><%= link_to "Print Class Report", :reports_master%></li>
+    <li><%= link_to "Print Student Reports", :reports_students%></li>
+    <li><a href="<%=reports_students_path%>?single_sided=1">
+      Print Student Reports (Single Sided)</a>
+    </li>
+  </ul>
+  <h4>Lockers</h4>
+  <ul>
+    <li><%= link_to "Manage Lockers", :lockers%></li>
+    <li><a href="<%=lockers_path%>.pdf">Print Lockers List</a></li>
+    <li><%= link_to "Print Checkout Sheets", :checkout_lockers%></li>
+  </ul>
+  <h4>Site Management</h4>
+  <ul>
+    <li><%= link_to  "Site Users", :users%></li>
+  </ul>
+  </ul>
+</div>
+</div>
+
+<a type="button" class="btn btn-default" href="<%=root_path%>">Home</a>

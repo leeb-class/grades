@@ -1,0 +1,26 @@
+  <h2>Students</h2>
+  <table class="table">
+    <thead>
+        <th>Name</th>
+        <th>Athena Username</th>
+        <th>Grade</th>
+    </thead>
+    <tbody>
+      <%@students.each do |student|%>
+      <tr>
+        <td>
+          
+            <%=link_to student.full_name, student_path(student)%></td>
+        <td>
+         <%=student.athena%> 
+        </td>
+        <td>
+          <%=student.total_grade%>
+        </td>
+      </tr>
+      <%end%>
+    </tbody>
+  </table>
+  <a type="button" class="btn btn-primary"
+    href="<%=new_student_path%>"><i class="icon-plus"></i> Add Students</a>
+  <a type="button" class="btn btn-default" href="<%=root_path%>">Back</a>

@@ -1,0 +1,50 @@
+<h2>Assignment: <%=@assignment.name%></h2>
+
+<div class="row">
+  <div class="col-md-6">
+    <dl class="dl-horizontal">
+      <dt>Abbreviation</dt><dd><%=@assignment.abbreviation%></dd>
+      <dt>Description</dt><dd><%=@assignment.description%></dd>
+      <dt>Value</dt><dd><%=@assignment.value%></dd>
+    </dl>
+  </div>
+  <div class="col-md-6">
+    <a type="button" class="btn btn-primary" 
+      href="<%=edit_grades_assignment_path(@assignment)%>">Enter Grades</a>
+    <span class="lead">|</span>
+    <a type="button" class="btn btn-primary"
+      href="<%=update_grades_assignment_path(@assignment)%>">Update Grades</a>
+  </div>
+</div>
+<table class="table">
+  <thead>
+    <th>Student</th>
+    <th>Grade</th>
+    <th></th>
+  </thead>
+  <tbody>
+  <!--sort by last name-->
+  <%@assignment.grades.includes(:student).order('students.last_name').each do |grade|%>
+    <tr>
+      <td><%=grade.student.full_name%></td>
+      <td>
+        <%if grade.value==nil%>
+          &mdash;
+        <%else%>
+          <%=number_to_human(grade.value, precision: 4, strip_insignificant_zeros: true)%>
+        <%end%>
+      </td>
+      <td>
+        <a href="<%=edit_grade_path(grade)%>">
+          <i class="fa fa-edit"></i></a>
+      </td>
+    </tr>
+  <%end%>
+  </tbody>
+</table>
+<%if current_user.admin?%>
+<a type="button" class="btn btn-primary"
+  href="<%=edit_assignment_path(@assignment)%>"><i class="icon-plus"></i> Edit Assignment</a>
+
+<%end%>
+<a href="<%=assignments_path%>" class="btn btn-default">Back</a>

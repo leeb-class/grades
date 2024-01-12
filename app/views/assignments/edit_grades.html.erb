@@ -1,0 +1,93 @@
+<h2>Enter Grades for <%=@assignment.name%>
+<a class="btn btn-primary pull-right"
+  href="<%=edit_grades_assignment_path(@assignment)%>.pdf"> <i class="fa fa-print"></i>  Print This Page</a></h2>
+
+<table class="table">
+  <thead>
+    <th>Student</th>
+    <th>Grade</th>
+  </thead>
+  <tbody>
+  <!--sort by last name-->
+  <%@assignment.grades.includes(:student).order('students.last_name').each do |grade|%>
+    <tr>
+      <td><%=grade.student.full_name%></td>
+      <td>
+        <input type="text" class="jsGrade form-control" data-id="<%=grade.id%>" 
+          placeholder="0"  value="<%=grade.value%>">
+      </td>
+    </tr>
+  <%end%>
+  </tbody>
+</table>
+<%if current_user.admin?%>
+<a type="button" class="btn btn-primary disabled" id="btnSaveGrades"><i class="icon-plus"></i> Save Grades</a>
+
+<%end%>
+<a href="<%=assignment_path(@assignment)%>" class="btn btn-default">Back</a>
+
+<script>
+$(function(){
+  $("#btnSaveGrades").click(function(){
+    if(validateAll()==false)
+      return;
+    var grades = {};
+    //build a tuples of all the grades
+    $(".jsGrade").each(function(index){
+      var id = parseInt($(this).attr("data-id"));
+      var grade = 0
+      if($(this).val()!="")
+        grade = parseFloat($(this).val());
+      grades[id]=grade;
+    });
+    //now we have validated grades, send to server
+    $.ajax({
+      type: "POST",
+      url: "<%=save_grades_assignment_path(@assignment)%>",
+      data: {"grades":grades},
+      success: saveComplete,
+    });
+  });
+  //input validation 
+  $(".jsGrade").change(function(){
+    var input = $(this).val();
+    if(input=="")
+      return;
+    //if the grade text is not a number, highlight the row
+    if(isNaN(parseFloat(input)) || parseFloat(input)<0){
+      $(this).parent().parent().addClass("danger");
+    } else {
+      $(this).parent().parent().removeClass("danger");
+    }
+    //now validate the rest of the inputs to see if we can save
+    validateAll();
+  });
+  //save is complete, redirect the user to the assignments page
+  function saveComplete(){
+    window.location="<%=assignment_path(@assignment)%>"
+  }
+  //only enable button when all inputs are valid
+  function validateInput(x){
+    if(x=="")
+      return true;
+    if(isNaN(parseFloat(x)) || parseFloat(x)<0)
+      return false;
+    return true;
+  };
+  //check all inputs to make sure they are valid
+  function validateAll(){
+    isValid=true;
+    $(".jsGrade").each(function(index){
+      if(validateInput($(this).val())==false){
+        isValid=false;
+      }
+    });
+    if(isValid){
+      $("#btnSaveGrades").removeClass("disabled");
+    } else {
+      $("#btnSaveGrades").addClass("disabled");
+    }
+    return isValid;
+  };
+});
+</script>
