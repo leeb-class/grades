@@ -1,0 +1,21 @@
+\documentclass[landscape,letterpaper,11pt]{article}
+<% @latex_config={:command => 'pdflatex',:parse_twice => true} # you can override the defaults if you wish; see LatexToPdf#config %>
+
+\usepackage[landscape,pdftex]{geometry}
+\setlength{\oddsidemargin}{0in}% default=0in
+\setlength{\textwidth}{9in}% default=9in
+\setlength{\textheight}{7in}% default=5.15in
+\setlength{\topmargin}{-0.5in}% default=0.20in
+\setlength{\headsep}{0in}% default=0.35in
+\setlength{\parskip}{1.2ex}
+\setlength{\parindent}{0mm}
+\usepackage{longtable}
+\usepackage{hhline}
+\usepackage[utf8x]{inputenc}
+\pagestyle{empty}
+
+\begin{document}
+
+<%=yield%>
+
+\end{document}

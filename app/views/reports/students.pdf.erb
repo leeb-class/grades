@@ -1,0 +1,72 @@
+\begin{center}\textbf{\LARGE <%=lesc(@settings.name)%> Grade Reports}\end{center}{\LARGE \par}
+
+\begin{center}<%=lesc(@settings.semester)%>\end{center}
+
+\pagebreak
+
+Student names on back
+
+\pagebreak
+
+% BODY
+ <%@students.each do |student|%>
+\renewcommand{\baselinestretch}{2}\selectfont
+
+\begin{center}
+
+\vspace*{2mm}
+
+
+
+\textbf{\LARGE <%=lesc(@settings.name)%> Grade Report}{\LARGE \par}
+
+Student: \textbf{<%=lesc(student.full_name)%>} (<%=lesc(student.athena)%>)
+
+\vspace{1cm}
+
+\begin{tabular}[t]{p{10mm}p{15mm}p{15mm}p{15mm}}
+\underline{Lab} & \underline{Grade} \\
+<% student.lab_grades.each do |lab_grade|%>
+~~{<%=lab_number(lab_grade)%>} & \textbf{<%=print_value(lab_grade.value)%>}/{<%=lab_grade.assignment.value%>} \\
+<%end%>
+\end{tabular}
+
+\vspace{6pt}
+
+\makebox[4in]{\hrulefill}
+
+\begin{tabular}[t]{p{25mm}p{30mm}}
+\hspace*{\fill} Labs & \textbf{<%=lab_total_earned(student)%>}/<%=lab_total_possible(student)%> \\
+<%student.misc_grades.each do |grade|%>
+\hspace*{\fill} <%=grade.assignment.name%> & \textbf{<%=print_value(grade.value)%>}/<%=grade.assignment.value%> \\
+<%end%>
+\end{tabular}
+
+\vspace{6pt}
+
+\makebox[4in]{\hrulefill}
+
+\vspace{6pt}
+
+\fbox{{\Large Total}: {\Large \textbf{<%=grade_total_earned(student)%>}/<%=grade_total_possible(student)%>}}
+
+\renewcommand{\baselinestretch}{1}\selectfont
+
+\vspace{1cm}
+
+
+
+\vspace{1cm}
+
+%A final total of 50 points out of 100 is required to pass the class. \\
+This grade report is current as of \today.
+\end{center}
+
+\pagebreak
+
+{ \Large \textbf{<%=lesc(student.full_name)%>} (<%=lesc(student.athena)%>) }
+
+\pagebreak
+
+<%end%>
+% FOOTER

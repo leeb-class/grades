@@ -1,2 +1,8 @@
 module ApplicationHelper
-end
+  
+    def lesc(text)
+      LatexToPdf.escape_latex(text)
+    end
+    
+  end
+  

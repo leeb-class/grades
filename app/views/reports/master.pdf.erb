@@ -1,0 +1,41 @@
+Sorted by name
+
+<%num_grades = @students_by_name[0].grades.count%>
+\begin{longtable}{r<%="|l"*(num_grades+2)-%>}
+<%#Build the table header%>
+\textbf{Name}&\textbf{User}
+<%@students_by_name[0].grades.each do |grade|-%>
+  &\textbf{<%=grade.assignment.abbreviation-%>}
+<%end-%>&total \\ \hhline{<%="="*(num_grades+3)%>}
+\endhead
+<%@students_by_name.each do |student|%>
+  <%=lesc(student.last_name)%>,<%=lesc(student.first_name)%>&<%=lesc(student.athena)-%>
+  <%student.grades.each do |grade|-%>
+    &<%=print_value(grade.value)-%>
+  <%end-%>&<%=number_to_human(student.total_grade, precision: 4, strip_insignificant_zeros: true)%>
+  \\ \hline
+<%end-%>
+
+
+\end{longtable}
+
+\pagebreak
+
+Sorted by rank
+
+<%num_grades = @students_by_name[0].grades.count%>
+\begin{longtable}{r<%="|l"*(num_grades+2)-%>}
+<%#Build the table header%>
+\textbf{Name}&\textbf{User}
+<%@students_by_grade[0].grades.each do |grade|-%>
+  &\textbf{<%=grade.assignment.abbreviation-%>}
+<%end-%>&total \\ \hhline{<%="="*(num_grades+3)%>}
+\endhead
+<%@students_by_grade.each do |student|%>
+  <%=lesc(student.last_name)%>,<%=lesc(student.first_name)%>&<%=lesc(student.athena)-%>
+  <%student.grades.each do |grade|-%>
+    &<%=print_value(grade.value)-%>
+  <%end-%>&<%=number_to_human(student.total_grade, precision: 4, strip_insignificant_zeros: true)%>
+  \\ \hline
+<%end-%>
+\end{longtable}
