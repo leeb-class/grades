@@ -1,0 +1,10 @@
+<h2>Editing Grade</h2>
+
+<dl class="dl-horizontal">
+  <dt>Student</dt><dd><%=@grade.student.first_name%> <%=@grade.student.last_name%></dd>
+  <dt>Assignment</dt><dd><%=@grade.assignment.name%></dd>
+  <dt>Assignment Total</dt><dd><%=@grade.assignment.value%></dd>
+</dl>
+<hr/>
+<%= render 'form' %>
+

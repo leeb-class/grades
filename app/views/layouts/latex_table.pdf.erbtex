@@ -10,6 +10,7 @@
 \setlength{\parskip}{1.2ex}
 \setlength{\parindent}{0mm}
 \usepackage{longtable}
+\usepackage{tabularray}
 \usepackage{hhline}
 \usepackage[utf8x]{inputenc}
 \pagestyle{empty}

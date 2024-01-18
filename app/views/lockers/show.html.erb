@@ -1,0 +1,18 @@
+<h2>Locker Details</h2>
+
+<dl class="dl-horizontal">
+  <dt>Number</dt><dd><%=@locker.number%></dd>
+  <dt>Lock Serial</dt><dd><%=@locker.serial%></dd>
+  <dt>Lock Combo</dt><dd><%=@locker.combo%></dd>
+  <dt>Kit</dt><dd><%=@locker.kit%></dd>
+  <dt>Notes</dt><dd><%=@locker.notes%></dd>
+</dl>
+
+<a type="button" class="btn btn-primary"
+  href="<%=edit_locker_path(@locker)%>"><i class="icon-plus"></i> Edit Locker</a>
+
+<a type="button" data-confirm="Are you sure?" data-method="delete"
+   class="btn btn-danger" href="<%=locker_path(@locker)%>" rel="nofollow">
+   Delete Locker</a>
+
+<a href="<%=lockers_path%>" class="btn btn-default">Back</a>

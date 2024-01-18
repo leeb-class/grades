@@ -1,0 +1,52 @@
+<h2>Editing Locker</h2>
+
+
+
+<%= form_for(@locker) do |f| %>
+  <% if @locker.errors.any? %>
+    <div class="alert alert-danger">
+      <h3><%= pluralize(@locker.errors.count, "error") %> prohibited this locker from being saved:</h3>
+
+      <ul>
+      <% @locker.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <% form_class="form-group"%>
+  <% form_class+=" has-error" if @locker.errors.include?(:number)%>
+  <div class="<%=form_class%>">
+    <%= f.label :number, :class=>"control-label"%>
+    <%= f.text_field :number, :class=>"form-control"%>
+  </div>
+  <% form_class="form-group"%>
+  <% form_class+=" has-error" if @locker.errors.include?(:serial)%>
+  <div class="<%=form_class%>">
+    <%= f.label :serial, :class=>"control-label"%>
+    <%= f.text_field :serial, :class=>"form-control"%>
+  </div>
+  <% form_class="form-group"%>
+  <% form_class+=" has-error" if @locker.errors.include?(:combo)%>
+  <div class="<%=form_class%>">
+    <%= f.label :combo, :class=>"control-label"%>
+    <%= f.text_field :combo, :class=>"form-control"%>
+  </div>
+  <% form_class="form-group"%>
+  <% form_class+=" has-error" if @locker.errors.include?(:kit)%>
+  <div class="<%=form_class%>">
+    <%= f.label :kit, :class=>"control-label"%>
+    <%= f.text_field :kit, :class=>"form-control"%>
+  </div>
+  <% form_class="form-group"%>
+  <% form_class+=" has-error" if @locker.errors.include?(:notes)%>
+  <div class="<%=form_class%>">
+    <%= f.label :notes, :class=>"control-label"%>
+    <%= f.text_field :notes, :class=>"form-control"%>
+  </div>
+  
+  <div class="actions">
+    <%= f.submit 'Save', :class=>"btn btn-primary"%>
+    <a href="<%=lockers_path%>" class="btn btn-default">Cancel</a>
+  </div>
+<% end %>

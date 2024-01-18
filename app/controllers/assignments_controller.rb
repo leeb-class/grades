@@ -55,7 +55,7 @@ class AssignmentsController < ApplicationController
       end
       flash.notice = 'Assignment successfully updated'
       flash.keep(:notice)
-      render text: "ok"
+      render plain: "ok"
     end
     
     # POST /assignments

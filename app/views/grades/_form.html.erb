@@ -1,0 +1,23 @@
+<%= form_for(@grade) do |f| %>
+  <% if @grade.errors.any? %>
+    <div class="alert alert-danger">
+      <h3><%= pluralize(@grade.errors.count, "error") %> prohibited this grade from being saved:</h3>
+
+      <ul>
+      <% @grade.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <% form_class="form-group"%>
+  <% form_class+=" has-error" if @grade.errors.include?(:value)%>
+  <div class="<%=form_class%>">
+    <%= f.label :value, :class=>"control-label"%>
+    <%= f.text_field :value, :class=>"form-control"%>
+  </div>
+  <div class="actions">
+    <%= f.submit 'Save', :class=>"btn btn-primary"%>
+    <a href="<%=assignment_path(@grade.assignment)%>" class="btn btn-default">Cancel</a>
+  </div>
+<% end %>

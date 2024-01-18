@@ -16,12 +16,12 @@
 
 \newcolumntype{R}{>{\centering\arraybackslash}X}
 \renewcommand{\arraystretch}{1.3}
-\begin{longtabu}{r|l|l|l|R}
+\begin{tblr}{r|l|l|l|r}
 \textbf{Name}&\textbf{Athena}&\textbf{Grade}&\textbf{Staff Initial}&\textbf{Notes}\\ \hline\hline
 
 <%@assignment.grades.includes(:student).order('students.last_name').each do |grade|%>
 <%=lesc(grade.student.full_name)%>&<%=lesc(grade.student.athena)%>&&&\\ \hline
 <%end-%>
-\end{longtabu}
+\end{tblr}
 
 \end{centering}

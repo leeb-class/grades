@@ -1,0 +1,17 @@
+List of Lockers
+
+\begin{longtable}{r|l|l|l|l}
+<%#Build the table header%>
+\textbf{Locker}&\textbf{Serial}&\textbf{Combo}
+&\textbf{Kit}&\textbf{Notes}
+\\ \hhline{=====}
+\endhead
+<%@lockers.each do |locker|%>
+  <%=locker.number%>&<%=locker.serial%>&<%=locker.combo-%>&
+  <%=locker.kit%>&<%=locker.notes-%>
+  
+  \\ \hline
+<%end-%>
+
+
+\end{longtable}

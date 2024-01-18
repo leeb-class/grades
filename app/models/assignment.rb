@@ -1,7 +1,7 @@
 class Assignment < ApplicationRecord
  #---Associations-----
   has_many :grades, dependent: :destroy
-  has_many :students, -> { uniq }, through: :grades
+  has_many :students, -> { distinct }, through: :grades
    
   #---Attributes------
   #  name (string)

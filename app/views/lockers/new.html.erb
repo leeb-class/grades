@@ -1,0 +1,30 @@
+<div ng-controller="LockerCtrl" ng-init="init()">
+  <h2>Setup Lockers</h2>
+  Locker Number, Lock Serial, Lock Combo, Kit Number, Notes
+
+  <hr>
+  <form class="clearfix">
+    <div class="form-group">
+    <textarea ui-codemirror="editorOptions" 
+      placeholder="23, 12345, 23-15-26 missing book" class="form-control" rows=10
+       ng-model="bulk_input" ng-change="parseInput()"></textarea>
+    </div>
+    <div class="form-group">
+      <span ng-show="syntax_error" class="text-danger">Error parsing line, check your syntax</span>
+    </div>
+  </form>
+  <span class="lead" ng-show="error_msg==''">
+    {{lockers.length}} lockers total</span>
+
+  <span class="lead text-danger" ng-show="error_msg!=''">
+    {{error_msg}}
+  </span>
+  <hr>
+
+  
+  <a type="button" ng-click="saveLockers()" class="btn btn-primary" ng-disabled="busy">Save Lockers</a>
+  <a type="button" class="btn btn-default" href="<%=lockers_path%>">Cancel</a>
+  
+  <a type="button" class="btn btn-primary pull-right"
+    href="<%=items_path%>">Locker Contents</a>
+</div>

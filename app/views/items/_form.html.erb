@@ -1,0 +1,28 @@
+<%= form_for(@item) do |f| %>
+  <% if @item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
+
+      <ul>
+      <% @item.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <% form_class="form-group"%>
+  <% form_class+=" has-error" if @item.errors.include?(:quantity)%>
+  <div class="<%=form_class%>">
+    <%= f.label :quantity, :class=>"control-label"%>
+    <%= f.text_field :quantity, :class=>"form-control"%>
+  </div>
+  <% form_class="form-group"%>
+  <% form_class+=" has-error" if @item.errors.include?(:name)%>
+  <div class="<%=form_class%>">
+    <%= f.label :name, :class=>"control-label"%>
+    <%= f.text_field :name, :class=>"form-control"%>
+  </div>
+  <div class="actions">
+    <%= f.submit 'Save Item', :class=>"btn btn-primary" %>
+  </div>
+<% end %>

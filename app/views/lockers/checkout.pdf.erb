@@ -1,0 +1,50 @@
+
+
+\renewcommand{\baselinestretch}{1}\selectfont
+
+<% @lockers.each do |locker|%>
+\vspace*{1.2cm}
+
+\begin{center}\textbf{\LARGE <%=@settings[:name]%> Kit Checklist}\end{center}{\LARGE \par}
+
+\begin{center}<%=@settings[:semester]%> \end{center}
+
+If any of the equipment listed below is missing from your locker, you
+need to tell one of the TAs during lab familiarizations.  You will be
+held responsible for any missing equipment not reported to the TAs by
+the end of the week.  Any missing equipment will be replaced by the
+course TAs, not by the equipment desk workers.
+
+\renewcommand{\baselinestretch}{2}\selectfont
+\begin{table}[h!]
+\begin{center}
+\begin{tabular}{rl}
+
+Locker Number: & \underline{\parbox{3.5in}{\textbf{<%=locker.number%>} \hspace*{\fill}}} \\
+Lock Number: & \underline{\parbox{3.5in}{\textbf{<%=locker.serial%>} \hspace*{\fill}}} \\
+Kit Number: & \underline{\parbox{3.5in}{\textbf{<%=locker.kit%>} \hspace*{\fill}}} \\
+Locker Combo: & \underline{\parbox{3.5in}{\textbf{<%= locker.combo%>} \hspace*{\fill}}}
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{center}
+\textit{You should find the following items in your locker:}
+\end{center}
+
+\renewcommand{\baselinestretch}{1.5}\selectfont
+%\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+%\setcounter{footnote}{0}
+\begin{center}\begin{tabular}{|c|l|}
+\hline
+Qty & Item\\
+\hline \hline
+<%@contents.each do |item|%>
+<%=item.quantity%> & <%=item.name%> \\ \hline
+<%end%>
+
+\end{tabular}
+\end{center}
+
+\pagebreak
+<%end%>

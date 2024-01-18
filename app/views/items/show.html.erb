@@ -1,0 +1,15 @@
+<h2>Item Details</h2>
+
+<dl class="dl-horizontal">
+  <dt>Name</dt><dd><%=@item.name%></dd>
+  <dt>Quantity</dt><dd><%=@item.quantity%></dd>
+</dl>
+
+<a type="button" class="btn btn-primary"
+  href="<%=edit_item_path(@item)%>"><i class="icon-plus"></i> Edit Item</a>
+
+<a type="button" data-confirm="Are you sure?" data-method="delete"
+   class="btn btn-danger" href="<%=item_path(@item)%>" rel="nofollow">
+   Delete Item</a>
+
+<a href="<%=items_path%>" class="btn btn-default">Back</a>

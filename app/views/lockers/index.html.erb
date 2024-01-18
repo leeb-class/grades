@@ -1,0 +1,41 @@
+  <h2>Lockers</h2>
+  <table class="table">
+    <thead>
+        <th>Number</th>
+        <th>Lock</th>
+        <th>Combo</th>
+        <th>Kit</th>
+        <th>Notes</th>
+        <th></th>
+    </thead>
+    <tbody>
+      <%@lockers.each do |locker|%>
+      <tr>
+        <td>
+          <%=locker.number%>
+        <td>
+         <%=locker.serial%> 
+        </td>
+        <td>
+          <%=locker.combo%>
+        </td>
+        <td>
+          <%=locker.kit%>
+        </td>
+        <td>
+          <%=locker.notes%>
+        </td>
+        <td>
+          <a href="<%=locker_path(locker)%>"<i class="fa fa-edit"></i></a>
+        </td>
+        
+      </tr>
+      <%end%>
+    </tbody>
+  </table>
+  <a type="button" class="btn btn-primary"
+    href="<%=new_locker_path%>"><i class="icon-plus"></i> Edit</a>
+  <a type="button" data-confirm="Are you sure?" data-method="put"
+     class="btn btn-primary pull-right btn-danger" href="<%=rotate_lockers_path%>" rel="nofollow">
+     <i class="fa fa-lock"></i>  Rotate Locks +1</a>
+  <a type="button" class="btn btn-default" href="<%=admin_index_path%>">Back</a>

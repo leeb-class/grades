@@ -3,9 +3,8 @@ class ApplicationController < ActionController::Base
 
     def load_settings
         @settings = {
-            title: ENV['TITLE'],
-            subtitle: ENV['SUBTITLE'],
-            page_title: ENV['PAGE_TITLE']
+            name: ENV['NAME'],
+            semester: ENV['SEMESTER'],
         }
     end
 end

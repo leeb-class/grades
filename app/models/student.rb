@@ -1,8 +1,8 @@
 class Student < ApplicationRecord
     #---Associations-----
     has_many :grades, dependent: :destroy
-    has_many :assignments, -> { uniq }, through: :grades
-   
+    has_many :assignments, -> { distinct }, through: :grades
+
     #---Attributes------
     #  athena (string)
     #  first_name (string)

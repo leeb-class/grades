@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_11_003952) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_14_012745) do
   create_table "assignments", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -24,6 +24,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_11_003952) do
     t.integer "student_id"
     t.integer "assignment_id"
     t.decimal "value", precision: 5, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["assignment_id"], name: "index_grades_on_assignment_id"
+    t.index ["student_id"], name: "index_grades_on_student_id"
+  end
+
+  create_table "items", force: :cascade do |t|
+    t.string "name"
+    t.integer "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

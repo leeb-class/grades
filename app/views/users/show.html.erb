@@ -1,0 +1,19 @@
+<h2>User Details</h2>
+
+<dl class="dl-horizontal">
+  <dt>Username</dt><dd><%=@user.username%></dd>
+  <dt>E-mail</dt><dd><%=mail_to @user.email%></dd>
+  <dt>Sign In Count</dt><dd><%=@user.sign_in_count%></dd>
+  <dt>Current Sign In</dt><dd><%=@user.current_sign_in_at%></dd>
+  <dt>Current Sign In IP</dt><dd><%=@user.current_sign_in_ip%></dd>
+  <dt>Last Sign In</dt><dd><%=@user.last_sign_in_at%></dd>
+  <dt>Last Sign In IP</dt><dd><%=@user.last_sign_in_ip%></dd>
+  <dt>Admin?</dt><dd><%=@user.admin?%></dd>
+</dl>
+
+<%if @user==current_user or current_user.admin?%>
+<a type="button" class="btn btn-primary"
+  href="<%=edit_user_path(@user)%>"><i class="icon-plus"></i> Edit User</a>
+
+<%end%>
+<a href="<%=users_path%>" class="btn btn-default">Back</a>

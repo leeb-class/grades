@@ -1,0 +1,28 @@
+<h2>Locker Contents</h2>
+  <table class="table">
+    <thead>
+        <th>Item</th>
+        <th>Quantity</th>
+        <th></th>
+    </thead>
+    <tbody>
+      <%@items.each do |item|%>
+      <tr>
+        <td>
+          <%=item.name%>
+        <td>
+         <%=item.quantity%> 
+        </td>
+        <td>
+          <a href="<%=item_path(item)%>"<i class="fa fa-edit"></i></a>
+        </td>
+      </tr>
+      <%end%>
+    </tbody>
+  </table>
+  <a type="button" class="btn btn-primary"
+    href="<%=new_item_path%>"><i class="icon-plus"></i> Add Item</a>
+ 
+  <a type="button" class="btn btn-default" href="<%=lockers_path%>">Back</a>
+<table>
+ 
